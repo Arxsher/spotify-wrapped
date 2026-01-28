@@ -1,0 +1,445 @@
+.sidebar {
+  width: 280px;
+  height: 100vh;
+  background-color: #000000;
+  position: fixed;
+  left: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  gap: 16px;
+  z-index: 1000;
+  font-family: 'Poppins', sans-serif; /* Use Poppins for the entire sidebar */
+  overflow: hidden; /* Ensure sidebar itself doesn't scroll */
+}
+
+/* --- Header / Logo --- */
+.sidebar-header {
+  padding: 0;
+  margin-bottom: 24px; /* Significant spacing below logo */
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 12px;
+  background-color: transparent; /* Removed bg */
+  border-radius: 0;
+  height: 48px;
+}
+
+.app-logo {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+.logo-text {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: #fff;
+}
+
+/* --- Nav Block --- */
+.sidebar-nav-block {
+  background-color: transparent; /* Removed bg */
+  border-radius: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* Increased gap */
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 12px;
+  color: #b3b3b3;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+  transition: all 0.2s ease;
+  border-radius: 8px;
+  height: 48px;
+}
+
+.nav-item:hover {
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.nav-item.active {
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.1); /* Subtle active background */
+}
+
+/* --- Library / History --- */
+.sidebar-library-block {
+  background-color: transparent; /* Removed bg */
+  border-radius: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  overflow: hidden;
+  gap: 4px;
+  min-height: 0;
+  flex: 0 0 auto; /* Stop it from growing to fill space */
+}
+
+.library-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 12px 8px;
+  color: #b3b3b3;
+  min-height: 40px;
+}
+
+.library-title {
+  font-weight: 500; /* Slightly reduced weight for sentence case */
+  font-size: 14px; /* Increased back to 14px for readability */
+  text-transform: none; /* Removed uppercase */
+  letter-spacing: 0; /* Normal letter spacing */
+  color: #a7a7a7;
+}
+
+.library-show-more-btn {
+  background: none;
+  border: none;
+  color: #a7a7a7;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+  transition: color 0.2s ease;
+  text-transform: none; /* Removed uppercase */
+  letter-spacing: 0;
+}
+
+.library-show-more-btn:hover {
+  color: #fff;
+}
+
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  overflow-y: hidden; /* Prevent scrolling */
+  padding: 4px 0;
+}
+
+.history-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  height: 64px;
+}
+
+.history-item:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.history-img {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px; /* Softer corners */
+  object-fit: cover;
+  flex-shrink: 0;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.history-img-placeholder {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  background-color: #282828;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.history-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  gap: 4px;
+  justify-content: center;
+}
+
+.history-name {
+  color: #fff;
+  font-size: 15px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2;
+}
+
+.history-artist {
+  color: #b3b3b3;
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2;
+}
+
+/* Actions Block */
+.sidebar-actions-block {
+  background-color: transparent; /* Removed bg */
+  border-radius: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.action-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #b3b3b3;
+  transition: all 0.2s ease;
+  height: 48px;
+}
+
+.action-item:hover {
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.action-icon-container {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #b3b3b3;
+  flex-shrink: 0;
+}
+
+.action-item:hover .action-icon-container {
+  color: #fff;
+}
+
+.action-icon-container.special {
+  color: #a78bfa;
+}
+
+.action-text {
+  font-size: 15px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Wrapped Card Styling */
+.sidebar-wrapped-card {
+  margin-top: auto;
+  background-color: #030303;
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  min-height: 180px;
+  
+  /* Aurora Card Style - Deep space background with subtle stars */
+  background: 
+    /* Star pattern (simulated with radial gradients) */
+    radial-gradient(1px 1px at 10% 10%, rgba(255,255,255,0.3) 100%, transparent),
+    radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,0.3) 100%, transparent),
+    radial-gradient(2px 2px at 40% 70%, rgba(255,255,255,0.4) 100%, transparent),
+    radial-gradient(1px 1px at 60% 20%, rgba(255,255,255,0.3) 100%, transparent),
+    radial-gradient(1.5px 1.5px at 80% 60%, rgba(255,255,255,0.3) 100%, transparent),
+    radial-gradient(1px 1px at 90% 80%, rgba(255,255,255,0.3) 100%, transparent),
+    /* Deep base gradient */
+    linear-gradient(180deg, #050505 0%, #0a0a0a 100%);
+    
+  /* Soft glass border */
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Glow Effect - The Aurora */
+.wrapped-glow {
+  position: absolute;
+  /* Positioned to create the bottom-up light leak effect */
+  bottom: -40px;
+  right: -20%;
+  width: 140%;
+  height: 100%;
+  
+  /* The "Aurora" Gradient - mixing neon red with deep purples/oranges for that cosmic feel */
+  background: radial-gradient(
+    circle at 50% 100%,
+    rgba(255, 58, 50, 0.6) 0%,      /* Core neon red */
+    rgba(255, 80, 50, 0.3) 30%,     /* Softer orange-red */
+    rgba(120, 40, 200, 0.1) 60%,    /* Subtle purple fade */
+    transparent 80%
+  );
+  
+  filter: blur(30px);
+  pointer-events: none;
+  z-index: 1;
+  opacity: 1;
+  mix-blend-mode: screen;
+}
+
+/* Light beam overlay */
+.sidebar-wrapped-card::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  right: -10%;
+  width: 80%;
+  height: 120%;
+  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.03) 0%, transparent 70%);
+  transform: rotate(-15deg);
+  pointer-events: none;
+  z-index: 2;
+  filter: blur(10px);
+}
+
+/* No more rim reflections from previous style to keep it cleaner like the reference */
+.sidebar-wrapped-card::after {
+  display: none;
+}
+
+.wrapped-icon-container {
+  width: 28px;
+  height: 28px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  z-index: 3;
+  position: relative;
+}
+
+.wrapped-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 3;
+  position: relative;
+}
+
+.wrapped-title {
+  color: #fff;
+  font-size: 20px; /* Larger title */
+  font-weight: 700;
+  line-height: 1.1;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+.wrapped-subtitle {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 13px;
+  line-height: 1.4;
+  margin: 0 0 12px 0; /* Space before button */
+  max-width: 90%;
+}
+
+.wrapped-link {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+  align-self: flex-start;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-color: rgba(255, 255, 255, 0.4);
+  transition: all 0.2s ease;
+}
+
+.wrapped-link:hover {
+  text-decoration-color: #fff;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+}
+
+/* Scrollbar styling */
+.history-list::-webkit-scrollbar {
+  width: 6px;
+}
+.history-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+.history-list::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+.history-list:hover::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 72px;
+    padding: 12px 8px;
+  }
+  
+  .logo-text,
+  .nav-item span,
+  .library-title,
+  .library-show-more-btn,
+  .history-info,
+  .action-text,
+  .sidebar-wrapped-card {
+    display: none; /* Hide complex card on mobile sidebar */
+  }
+  
+  .sidebar-header {
+    margin-bottom: 16px;
+    padding: 0;
+  }
+  
+  .logo-container {
+    justify-content: center;
+    padding: 0;
+  }
+  
+  .nav-item,
+  .action-item {
+    justify-content: center;
+    padding: 12px;
+  }
+  
+  .history-item {
+    justify-content: center;
+    padding: 8px 4px;
+  }
+  
+  .history-img-placeholder {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .action-icon-container {
+    width: 24px;
+    height: 24px;
+  }
+}

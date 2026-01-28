@@ -1,0 +1,40 @@
+.tracks-table-container { overflow-x: auto; }
+.tracks-table { width: 100%; border-collapse: collapse; }
+.tracks-table thead { border-bottom: 1px solid var(--border); }
+.tracks-table th { padding: 8px 16px; text-align: left; font-size: 11px; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+.th-number { width: 50px; text-align: center !important; }
+.th-title { min-width: 300px; }
+.th-album { min-width: 200px; }
+.th-plays { width: 100px; text-align: right !important; }
+.th-duration { width: 140px; text-align: right !important; }
+.th-duration svg { color: var(--text-muted); }
+.track-row { border-radius: var(--radius-md); transition: background-color var(--transition-fast); }
+.track-row:hover { background-color: rgba(255, 255, 255, 0.1); }
+.track-row.playing { background-color: rgba(29, 185, 84, 0.1); }
+.track-row td { padding: 8px 16px; vertical-align: middle; }
+.td-number { text-align: center; font-size: 14px; color: var(--text-secondary); width: 50px; }
+.play-btn { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; color: var(--text-main); transition: transform var(--transition-fast); }
+.play-btn:hover { transform: scale(1.1); }
+.td-title { padding-top: 12px; padding-bottom: 12px; }
+.track-info { display: flex; align-items: center; gap: 12px; }
+.track-image { width: 44px; height: 44px; border-radius: var(--radius-sm); object-fit: cover; flex-shrink: 0; }
+.track-details { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.track-name { font-size: 15px; font-weight: 500; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.track-name.text-primary { color: var(--primary); }
+.track-artist { font-size: 13px; color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: flex; align-items: center; gap: 6px; }
+.explicit-badge { display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; background-color: var(--text-muted); color: var(--bg-app); font-size: 9px; font-weight: 700; border-radius: 2px; flex-shrink: 0; }
+.td-album { font-size: 14px; color: var(--text-secondary); }
+.album-link { transition: color var(--transition-fast); }
+.album-link:hover { color: var(--text-main); text-decoration: underline; }
+.td-plays { text-align: right; font-size: 14px; color: var(--text-secondary); font-variant-numeric: tabular-nums; }
+.td-duration { text-align: right; }
+.duration-cell { display: flex; align-items: center; justify-content: flex-end; gap: 12px; }
+.like-btn { opacity: 0; color: var(--text-secondary); transition: opacity var(--transition-fast), color var(--transition-fast), transform var(--transition-fast); }
+.track-row:hover .like-btn, .like-btn.liked { opacity: 1; }
+.like-btn.liked { color: var(--primary); }
+.like-btn:hover { color: var(--text-main); transform: scale(1.1); }
+.duration-text { font-size: 14px; color: var(--text-secondary); font-variant-numeric: tabular-nums; min-width: 40px; text-align: right; }
+.more-btn { opacity: 0; color: var(--text-secondary); transition: opacity var(--transition-fast), color var(--transition-fast); }
+.track-row:hover .more-btn { opacity: 1; }
+.more-btn:hover { color: var(--text-main); }
+@media (max-width: 768px) { .th-album, .td-album, .th-plays, .td-plays { display: none; } .tracks-table th, .tracks-table td { padding: 8px; } .track-image { width: 40px; height: 40px; } }

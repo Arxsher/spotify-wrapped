@@ -1,0 +1,25 @@
+.app-container {
+    display: flex;
+    min-height: 100vh;
+    background-color: var(--bg-app);
+}
+
+.main-content {
+    flex: 1;
+    margin-left: 280px;
+    min-height: 100vh;
+    background: linear-gradient(180deg, #1a3a2a 0%, var(--bg-app) 300px);
+    overflow-x: hidden;
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        margin-left: 72px;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-content {
+        margin-left: 0;
+    }
+}

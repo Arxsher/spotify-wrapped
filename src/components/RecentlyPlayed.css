@@ -1,0 +1,142 @@
+.recent-list-container {
+  width: 100%;
+}
+
+.recent-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: 14px;
+}
+
+.recent-table th {
+  text-align: left;
+  padding: 8px 12px;
+  color: var(--text-secondary);
+  font-weight: 500;
+  font-size: 12px;
+  text-transform: uppercase;
+  border-bottom: 1px solid #282828;
+}
+
+.recent-table td {
+  padding: 8px 12px;
+  color: var(--text-secondary);
+  vertical-align: middle;
+  border-bottom: 1px solid transparent; /* Keeps height consistent */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.recent-row {
+  height: 56px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.recent-row:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.recent-row.playing .recent-track-name,
+.recent-row.playing .num-text {
+  color: var(--primary);
+}
+
+/* Columns Widths */
+.th-num, .td-num { width: 40px; text-align: center; }
+.th-title, .td-title { width: auto; /* Take remaining space */ }
+.th-time, .td-time { width: 60px; text-align: right; }
+
+/* Index / Play Button */
+.td-num {
+  font-size: 16px;
+  color: var(--text-secondary);
+  position: relative;
+}
+
+.recent-play-btn {
+  background: none;
+  border: none;
+  color: var(--text-main);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  width: 100%;
+}
+
+/* Track Info */
+.recent-track-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  overflow: hidden; /* Ensure it stays within td */
+}
+
+.recent-thumb {
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.recent-track-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  min-width: 0; /* CRITICAL: allows flex child to truncate */
+  overflow: hidden;
+}
+
+.recent-track-name {
+  color: var(--text-main);
+  font-size: 15px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.recent-track-artist {
+  font-size: 13px;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Explicit Tag */
+.explicit-tag {
+  background-color: rgba(255, 255, 255, 0.6);
+  color: #000;
+  font-size: 9px;
+  padding: 1px 4px;
+  border-radius: 2px;
+  font-weight: 600;
+  display: inline-block;
+  line-height: 1;
+}
+
+/* Hover States for Text */
+.recent-row:hover .recent-track-name {
+  text-decoration: none;
+}
+
+.recent-row:hover .recent-track-artist,
+.recent-row:hover .td-album,
+.recent-row:hover .td-date {
+  color: #fff;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .th-date, .td-date,
+  .th-album, .td-album {
+    display: none;
+  }
+}

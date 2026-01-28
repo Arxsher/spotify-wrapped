@@ -1,0 +1,18 @@
+{
+  "name": "spotify-analytics-server",
+  "version": "1.0.0",
+  "description": "Backend proxy for Spotify Analytics Dashboard",
+  "main": "index.js",
+  "scripts": {
+    "start": "bun run index.js",
+    "dev": "bun --watch index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "axios": "^1.6.2",
+    "cookie-parser": "^1.4.6",
+    "querystring": "^0.2.1"
+  }
+}

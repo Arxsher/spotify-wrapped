@@ -1,0 +1,113 @@
+.genre-breakdown-container {
+  display: flex;
+  flex-direction: row;
+  gap: 32px;
+}
+
+.genre-left-column {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+}
+
+.genre-header-text {
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  color: #b3b3b3;
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+
+.highlight-text {
+  color: #fff;
+  font-weight: 500;
+}
+
+.genre-bars-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.genre-bar-item {
+  width: 100%;
+}
+
+.genre-bar-fill {
+  background-color: #1DB954;
+  height: 25px;
+  border-radius: 16px; /* Fully rounded pill shape */
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  min-width: fit-content;
+  white-space: nowrap;
+  transition: width 0.5s ease-out;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.genre-bar-label {
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+
+.genre-stats-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+}
+
+.genre-stat-card {
+  background-color: #1a1a1a;
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  height: 100%;
+  border: 1px solid #282828;
+}
+
+.stat-card-value {
+  font-family: 'Poppins', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: #1DB954;
+}
+
+.stat-card-desc {
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #ffffff;
+  line-height: 1.3;
+}
+
+@media (max-width: 900px) {
+  .genre-breakdown-container {
+    flex-direction: column;
+  }
+  
+  .genre-stats-cards {
+    flex-direction: row;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+  
+  .genre-stat-card {
+    min-width: 140px;
+  }
+}
+
+@media (max-width: 600px) {
+  .genre-stats-cards {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+}
