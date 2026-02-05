@@ -14,14 +14,16 @@ import './Sidebar.css';
 
 const HistoryItem = ({ item }) => {
   const [imgError, setImgError] = useState(false);
-  const imageUrl = item.track.album.images[0]?.url;
+  // Support both mock and real API structure
+  const track = item.track || item;
+  const imageUrl = track.album?.images?.[0]?.url;
 
   return (
-    <Link to={`/track/${item.track.id}`} className="history-item">
+    <Link to={`/track/${track.id}`} className="history-item">
       {imageUrl && !imgError ? (
         <img 
           src={imageUrl} 
-          alt={item.track.name} 
+          alt={track.name} 
           className="history-img"
           onError={() => setImgError(true)}
         />
@@ -31,17 +33,22 @@ const HistoryItem = ({ item }) => {
         </div>
       )}
       <div className="history-info">
-        <span className="history-name">{item.track.name}</span>
-        <span className="history-artist">{item.track.artists[0].name}</span>
+        <span className="history-name">{track.name}</span>
+        <span className="history-artist">{track.artists?.[0]?.name}</span>
       </div>
     </Link>
   );
 };
 
 const Sidebar = () => {
-  const { recentlyPlayed } = useSpotifyData();
+  const { recentlyPlayed, authenticated } = useSpotifyData();
+  
+  // Filter and limit history
   const recentHistory = recentlyPlayed
-    .filter(item => item.track.name !== 'Levitating')
+    .filter(item => {
+      const track = item.track || item;
+      return track.name !== 'Levitating';
+    })
     .slice(0, 4);
 
   return (
@@ -66,16 +73,22 @@ const Sidebar = () => {
 
       <div className="sidebar-library-block">
         <div className="library-header">
-          <span className="library-title">Your History</span>
+          <span className="library-title">{authenticated ? 'Your History' : 'Recent Mix'}</span>
           <button className="library-show-more-btn">
             Show more
           </button>
         </div>
 
         <div className="history-list">
-          {recentHistory.map((item, index) => (
-            <HistoryItem key={`${item.track.id}-${index}`} item={item} />
-          ))}
+          {recentHistory.length > 0 ? (
+            recentHistory.map((item, index) => (
+              <HistoryItem key={`${(item.track || item).id}-${index}`} item={item} />
+            ))
+          ) : (
+            <div className="empty-history">
+              <p>No history yet.</p>
+            </div>
+          )}
         </div>
       </div>
 

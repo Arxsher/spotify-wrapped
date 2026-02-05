@@ -11,7 +11,7 @@ const GenreBreakdown = () => {
     <div className="genre-breakdown-container">
       <div className="genre-left-column">
         <div className="genre-header-text">
-          Your top genre is <span className="highlight-text">{topGenre.genre.toLowerCase()}</span>, appearing in <span className="highlight-text">69</span> of your artists
+          Your top genre is <span className="highlight-text">{topGenre.genre.toLowerCase()}</span>, appearing in <span className="highlight-text">{topGenre.count || 69}</span> of your artists
         </div>
 
         <div className="genre-bars-list">

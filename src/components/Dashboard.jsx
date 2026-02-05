@@ -27,7 +27,10 @@ const Dashboard = () => {
     monthlyTrend,
     currentTrack,
     recentlyPlayed,
-    isPlaying
+    isPlaying,
+    authenticated,
+    login,
+    loading
   } = useSpotifyData();
 
   const tabs = [
@@ -37,33 +40,41 @@ const Dashboard = () => {
     { id: 'recently_played', label: 'Recently Played' }
   ];
 
-  const formatMinutes = (mins) => {
-    const hours = Math.floor(mins / 60);
-    const minutes = mins % 60;
-    if (hours > 0) {
-      return `${hours.toLocaleString()}h ${minutes}m`;
-    }
-    return `${minutes}m`;
-  };
-
   const topGenre = genreDistribution[0];
   const currentMonth = monthlyTrend[monthlyTrend.length - 1];
   const previousMonth = monthlyTrend[monthlyTrend.length - 2];
   const monthlyChange = ((currentMonth.minutes - previousMonth.minutes) / previousMonth.minutes * 100).toFixed(1);
 
-  // Helper function to get time of day greeting
-  const getTimeOfDay = () => {
-    const hour = new Date().getHours();
-    if (hour < 12) return 'morning';
-    if (hour < 18) return 'afternoon';
-    return 'evening';
-  };
-
-  const displayTrack = currentTrack || (recentlyPlayed.length > 0 ? recentlyPlayed[0].track : null);
+  const displayTrack = currentTrack || (recentlyPlayed.length > 0 ? (recentlyPlayed[0].track || recentlyPlayed[0]) : null);
   const displayIsPlaying = currentTrack ? isPlaying : false;
+
+  if (loading) {
+    return (
+      <div className="dashboard-container">
+        <div className="loading-state">
+          <div className="loading-spinner"></div>
+          <p>Syncing your music world...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="dashboard-container">
+      {/* Login CTA for unauthenticated users */}
+      {!authenticated && (
+        <div className="login-banner fade-in">
+          <div className="login-banner-content">
+            <Sparkles className="login-banner-icon" />
+            <div className="login-banner-text">
+              <h3>Real-time insights are waiting</h3>
+              <p>Connect your Spotify account to see your actual top tracks, artists, and listening trends.</p>
+            </div>
+          </div>
+          <button className="login-banner-btn" onClick={login}>Connect Now</button>
+        </div>
+      )}
+
       {/* Welcome Section */}
       <section className="welcome-section">
         <div className="welcome-banner">
@@ -71,7 +82,7 @@ const Dashboard = () => {
             <div className="profile-left">
               <div className="profile-image-container">
                 <img 
-                  src={user.images[0]?.url} 
+                  src={user.images?.[0]?.url || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=256&h=256&fit=crop'} 
                   alt={user.display_name} 
                   className="profile-image"
                 />
@@ -81,7 +92,7 @@ const Dashboard = () => {
                 <h1 className="profile-name">{user.display_name}.</h1>
                 <div className="profile-stats">
                   <span className="stats-dot">•</span>
-                  <span className="stats-text">{user.following} Following</span>
+                  <span className="stats-text">{user.followers?.total || user.followers || 0} Followers</span>
                 </div>
               </div>
             </div>

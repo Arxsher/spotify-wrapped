@@ -7,27 +7,58 @@ import './ArtistPage.css';
 
 const ArtistPage = () => {
   const { id } = useParams();
+  const { apiFetch, authenticated } = useSpotifyData();
   const [artist, setArtist] = useState(null);
   const [topTracks, setTopTracks] = useState([]);
   const [albums, setAlbums] = useState([]);
+  const [loading, setLoading] = useState(true);
   
   useEffect(() => {
-    // Simulate data fetching
-    const artistData = getArtistById(id);
-    const tracksData = getArtistTopTracks(id);
-    const albumsData = getAlbumsByArtistId(id);
-    
-    setArtist(artistData);
-    setTopTracks(tracksData);
-    setAlbums(albumsData);
-    
-    // Scroll to top when id changes
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        if (authenticated) {
+          const [artistData, tracksData, albumsData] = await Promise.all([
+            apiFetch(`artists/${id}`),
+            apiFetch(`artists/${id}/top-tracks?market=from_token`),
+            apiFetch(`artists/${id}/albums?include_groups=album,single&limit=50`)
+          ]);
+          
+          setArtist(artistData);
+          setTopTracks(tracksData.tracks || []);
+          setAlbums(albumsData.items || []);
+        } else {
+          // Fallback to mock
+          setArtist(getArtistById(id));
+          setTopTracks(getArtistTopTracks(id));
+          setAlbums(getAlbumsByArtistId(id));
+        }
+      } catch (err) {
+        console.error('Error fetching artist details:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
     window.scrollTo(0, 0);
-  }, [id]);
+  }, [id, authenticated, apiFetch]);
+
+  if (loading) {
+    return (
+      <div className="loading-container">
+        <div className="loading-spinner"></div>
+        <p>Loading artist...</p>
+      </div>
+    );
+  }
 
   if (!artist) {
-    return <div className="loading-state">Loading artist...</div>;
+    return <div className="error-state">Artist not found</div>;
   }
+
+  const followersCount = artist.followers?.total || artist.followers || 0;
+  const monthlyListeners = artist.monthly_listeners || (followersCount * 1.5); // Estimate if not available
 
   return (
     <div className="artist-page">
@@ -37,7 +68,7 @@ const ArtistPage = () => {
         </Link>
         <div className="artist-header-content">
           <div className="artist-image-container">
-            <img src={artist.images[0].url} alt={artist.name} className="artist-hero-image" />
+            <img src={artist.images?.[0]?.url} alt={artist.name} className="artist-hero-image" />
           </div>
           <div className="artist-details">
             <span className="verified-badge">Verified Artist</span>
@@ -45,12 +76,12 @@ const ArtistPage = () => {
             <div className="artist-stats">
               <span className="stat-item">
                 <Users size={16} />
-                {formatNumber(artist.followers)} followers
+                {formatNumber(followersCount)} followers
               </span>
               <span className="dot-separator">•</span>
               <span className="stat-item">
                 <Music size={16} />
-                {formatNumber(artist.monthly_listeners)} monthly listeners
+                {formatNumber(monthlyListeners)} monthly listeners
               </span>
             </div>
             <div className="artist-actions">
@@ -71,8 +102,9 @@ const ArtistPage = () => {
               topTracks.map((track, index) => (
                 <div key={track.id} className="popular-track-row">
                   <span className="track-index">{index + 1}</span>
+                  <img src={track.album?.images?.[0]?.url} className="track-mini-img" alt="" />
                   <span className="track-title-simple">{track.name}</span>
-                  <span className="track-plays">{formatNumber(track.plays)} plays</span>
+                  <span className="track-plays">{formatNumber(track.plays || track.popularity * 1000000)} plays</span>
                 </div>
               ))
             ) : (
@@ -87,7 +119,7 @@ const ArtistPage = () => {
             {albums.map(album => (
               <Link to={`/album/${album.id}`} key={album.id} className="album-card">
                 <div className="album-image-wrapper">
-                  <img src={album.images[0].url} alt={album.name} className="album-image" />
+                  <img src={album.images?.[0]?.url} alt={album.name} className="album-image" />
                   <div className="play-overlay">
                     <Play size={24} fill="currentColor" />
                   </div>
@@ -97,7 +129,7 @@ const ArtistPage = () => {
                   <div className="album-meta">
                     <span>{new Date(album.release_date).getFullYear()}</span>
                     <span className="dot-separator">•</span>
-                    <span>Album</span>
+                    <span>{album.album_type || 'Album'}</span>
                   </div>
                 </div>
               </Link>

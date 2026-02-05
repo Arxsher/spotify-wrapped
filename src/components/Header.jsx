@@ -9,7 +9,8 @@ import {
   Pause,
   SkipBack,
   SkipForward,
-  User
+  User,
+  LogOut
 } from 'lucide-react';
 import { useSpotifyData } from '../contexts/SpotifyDataContext';
 import './Header.css';
@@ -23,7 +24,10 @@ const Header = () => {
     nextTrack, 
     previousTrack,
     timeRange,
-    setTimeRange
+    setTimeRange,
+    authenticated,
+    login,
+    logout
   } = useSpotifyData();
 
   const timeRangeOptions = [
@@ -65,30 +69,62 @@ const Header = () => {
       </div>
 
       <div className="header-right">
-        <div className="time-range-selector">
-          <select value={timeRange} onChange={(e) => setTimeRange(e.target.value)} className="time-range-select">
-            {timeRangeOptions.map(option => (
-              <option key={option.value} value={option.value}>{option.label}</option>
-            ))}
-          </select>
-          <ChevronDown size={14} className="select-chevron" />
-        </div>
-        <button className="notification-btn">
-          <Bell size={20} />
-          <span className="notification-dot"></span>
-        </button>
-        <div className="user-profile">
-          {user.images?.[0]?.url ? (
-            <img src={user.images[0].url} alt={user.display_name} className="avatar" />
-          ) : (
-            <div className="avatar avatar-placeholder"><User size={16} /></div>
-          )}
-          <span className="user-name">{user.display_name}</span>
-          <ChevronDown size={16} className="profile-chevron" />
-        </div>
+        {!authenticated ? (
+          <button className="login-button" onClick={login}>
+            <Music size={18} />
+            Connect Spotify
+          </button>
+        ) : (
+          <>
+            <div className="time-range-selector">
+              <select value={timeRange} onChange={(e) => setTimeRange(e.target.value)} className="time-range-select">
+                {timeRangeOptions.map(option => (
+                  <option key={option.value} value={option.value}>{option.label}</option>
+                ))}
+              </select>
+              <ChevronDown size={14} className="select-chevron" />
+            </div>
+            <button className="notification-btn">
+              <Bell size={20} />
+              <span className="notification-dot"></span>
+            </button>
+            <div className="user-profile-group">
+              <div className="user-profile">
+                {user.images?.[0]?.url ? (
+                  <img src={user.images[0].url} alt={user.display_name} className="avatar" />
+                ) : (
+                  <div className="avatar avatar-placeholder"><User size={16} /></div>
+                )}
+                <span className="user-name">{user.display_name}</span>
+                <ChevronDown size={16} className="profile-chevron" />
+              </div>
+              <button className="logout-btn" onClick={logout} title="Log out">
+                <LogOut size={18} />
+              </button>
+            </div>
+          </>
+        )}
       </div>
     </header>
   );
 };
+
+// Simple icon wrapper if Music not imported
+const Music = ({ size }) => (
+  <svg 
+    width={size} 
+    height={size} 
+    viewBox="0 0 24 24" 
+    fill="none" 
+    stroke="currentColor" 
+    strokeWidth="2" 
+    strokeLinecap="round" 
+    strokeLinejoin="round"
+  >
+    <path d="M9 18V5l12-2v13" />
+    <circle cx="6" cy="18" r="3" />
+    <circle cx="18" cy="16" r="3" />
+  </svg>
+);
 
 export default Header;
