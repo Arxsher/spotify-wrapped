@@ -138,6 +138,8 @@ export const SpotifyDataProvider = ({ children }) => {
     setRecentlyPlayed(mockRecentlyPlayed);
   };
 
+  const authenticated = !!tokens;
+
   const genreDistribution = useMemo(() => {
     if (!authenticated || !topArtists.length || topArtists === mockTopArtists) {
       return mockGenreDistribution;
@@ -146,17 +148,22 @@ export const SpotifyDataProvider = ({ children }) => {
     const counts = {};
     topArtists.forEach(artist => {
       artist.genres?.forEach(genre => {
-        counts[genre] = (counts[genre] || 0) + 1;
+        // Capitalize first letter
+        const formattedGenre = genre.charAt(0).toUpperCase() + genre.slice(1);
+        counts[formattedGenre] = (counts[formattedGenre] || 0) + 1;
       });
     });
     
+    const colors = ['#1DB954', '#1ed760', '#169c46', '#14833c', '#0d5c2a', '#0a471f', '#073214'];
+    
     return Object.entries(counts)
       .sort(([, a], [, b]) => b - a)
-      .slice(0, 10)
-      .map(([genre, count]) => ({
+      .slice(0, 7)
+      .map(([genre, count], index) => ({
         genre,
         percentage: Math.round((count / topArtists.length) * 100),
-        count
+        count,
+        color: colors[index] || '#1DB954'
       }));
   }, [topArtists, authenticated]);
 
