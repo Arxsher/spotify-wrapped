@@ -17,7 +17,7 @@ const GenreBreakdown = () => {
         <div className="genre-bars-list">
           {displayGenres.map((genre) => (
             <div key={genre.genre} className="genre-bar-item">
-              <div className="genre-bar-fill" style={{ width: `${genre.percentage * 2}%` }}>
+              <div className="genre-bar-fill" style={{ width: `${genre.percentage * 2}%`, backgroundColor: genre.color }}>
                 <span className="genre-bar-label">{genre.genre.toLowerCase()}</span>
               </div>
             </div>
